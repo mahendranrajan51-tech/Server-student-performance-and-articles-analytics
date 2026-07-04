@@ -1,0 +1,137 @@
+{
+  "info": {
+    "name": "Student Performance Article Analytics",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000/api" },
+    { "key": "articleId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/register",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"New Student\",\n  \"email\": \"newstudent@example.com\",\n  \"password\": \"password123\",\n  \"role\": \"student\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login Teacher",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"teacher@example.com\",\n  \"password\": \"password123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Me",
+          "request": { "method": "GET", "url": "{{baseUrl}}/auth/me" }
+        },
+        {
+          "name": "Logout",
+          "request": { "method": "POST", "url": "{{baseUrl}}/auth/logout" }
+        }
+      ]
+    },
+    {
+      "name": "Articles",
+      "item": [
+        {
+          "name": "List Articles",
+          "request": { "method": "GET", "url": "{{baseUrl}}/articles" }
+        },
+        {
+          "name": "Create Article",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/articles",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Introduction to Plants\",\n  \"category\": \"Science\",\n  \"contentBlocks\": [\n    { \"type\": \"text\", \"value\": \"Plants make food using sunlight.\", \"caption\": \"\" },\n    { \"type\": \"image\", \"value\": \"https://images.unsplash.com/photo-1464226184884-fa280b87c399\", \"caption\": \"Plant growth\" }\n  ]\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Article",
+          "request": { "method": "GET", "url": "{{baseUrl}}/articles/{{articleId}}" }
+        },
+        {
+          "name": "Update Article",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/articles/{{articleId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Plants Lesson\",\n  \"category\": \"Science\",\n  \"contentBlocks\": [{ \"type\": \"text\", \"value\": \"Plants need sunlight, air, and water.\", \"caption\": \"\" }]\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Article",
+          "request": { "method": "DELETE", "url": "{{baseUrl}}/articles/{{articleId}}" }
+        }
+      ]
+    },
+    {
+      "name": "Analytics and Student",
+      "item": [
+        {
+          "name": "Teacher Analytics",
+          "request": { "method": "GET", "url": "{{baseUrl}}/analytics/teacher" }
+        },
+        {
+          "name": "Student Analytics",
+          "request": { "method": "GET", "url": "{{baseUrl}}/analytics/student" }
+        },
+        {
+          "name": "Track View",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/tracking/view",
+            "body": { "mode": "raw", "raw": "{\n  \"articleId\": \"{{articleId}}\"\n}" }
+          }
+        },
+        {
+          "name": "Track Duration",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/tracking/duration",
+            "body": { "mode": "raw", "raw": "{\n  \"articleId\": \"{{articleId}}\",\n  \"duration\": 120\n}" }
+          }
+        },
+        {
+          "name": "Save Highlight",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/student/highlights",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"articleId\": \"{{articleId}}\",\n  \"text\": \"Plants make food using sunlight.\",\n  \"note\": \"Remember for exam\"\n}"
+            }
+          }
+        },
+        {
+          "name": "My Highlights",
+          "request": { "method": "GET", "url": "{{baseUrl}}/student/highlights" }
+        }
+      ]
+    }
+  ]
+}
