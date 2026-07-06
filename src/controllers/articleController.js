@@ -1,5 +1,24 @@
 import Article from "../models/Article.js";
 
+export const uploadArticleMedia = async (req, res, next) => {
+  try {
+    if (!req.file) {
+      const error = new Error("Media file is required");
+      error.statusCode = 400;
+      throw error;
+    }
+
+    res.status(201).json({
+      url: `/uploads/articles/${req.file.filename}`,
+      filename: req.file.originalname,
+      mimetype: req.file.mimetype,
+      size: req.file.size
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const createArticle = async (req, res, next) => {
   try {
     const article = await Article.create({ ...req.body, createdBy: req.user._id });
