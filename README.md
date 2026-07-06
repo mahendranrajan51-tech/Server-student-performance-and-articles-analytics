@@ -74,3 +74,9 @@ npm start
 - The JWT is never stored in local storage. It is set by the server as an `httpOnly` cookie.
 - Article content blocks support `text`, `image`, `video`, and `3d` URL/embed blocks.
 - Student reading duration is tracked when leaving the article page.
+
+5. Seed data: (optional)
+
+```bash
+npm run seed
+```
